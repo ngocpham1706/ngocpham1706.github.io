@@ -1,0 +1,124 @@
+
+<!--
+ * @Author: nghiemtv.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3D</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style0.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="typing">
+        <h2 class="header-sub-title" id="word"></h2>
+        <h2 class="header-sub-title blink">|</h2>
+      </div>
+      <audio controls autoplay loop="loop"><source src="music.mp3" /></audio>
+      <div class="box">
+        <ul class="minbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ol class="maxbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script src="TweenMax.min.js"></script>
+    <script src="index.js"></script>
+
+    <script>
+
+      if (
+        navigator.userAgent.match(
+          /(phone|pod|iPhone|iPod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        var box = document.querySelectorAll(".box")[0];
+        console.log(box, "移动端");
+        box.style.left = "42%";
+      }
+      const words = [
+       "❤ Tình yêu ~ Em Đang Ở Phương Xa Nào ?",
+        "❤ Anh sẽ gửi cho em một bức thư tình, Anh sẽ vun đắm tình yêu và Anh sẽ trao cho Em một bức thư tình cho phần còn lại của cuộc đời Anh。!",
+        "❤ Anh mơ được ở bên Em, ngày ba bữa, qua bốn mùa anh sẽ là tổ ấm của đời em.。!",
+        "❤ Em là chiếc khăn ấm của anh, là ước mơ của anh ngày này qua ngày khác.。!",
+        "❤ Anh không giỏi trong tình yêu, nhưng Anh yêu Em từ sâu trong Trái Tim <3 !。",
+        "❤ Anh Ước gì 1 ngày có 25 giờ , để 1 giờ Anh không nhớ tới em .. !",
+        "❤ Đời có bao nhiêu món quà kỳ diệu, cho Anh gặp Em giữa biển người mênh mông!",
+        "❤ Em đang ở đâu, thời tiết Hà Nội se lạnh và mọi thứ đều rất giản dị.。!",
+        "❤ Cùng Anh chia sẻ những thăng trầm, cùng Anh ngày ba bữa ~ bốn mùa Xây dựng nên câu chuyện tình yêu đẹp nhất trên đời.。!",
+        "❤ Cả đời này Anh nguyện làm bờ vai, chỗ dựa an toàn nhất cho em,Anh sẽ là bến đỗ an toàn nhất của em, và Anh chỉ có mình Em.!",
+        "❤ Chúng ta phải đi đến cùng, có 1 đám cưới, phải sống tới già, phải chung tay suốt đời.Nhưng Em ở đâu.......!",
+      ];
+      let PPP = 0;
+      let timer;
+      let deleteDelay = 3000;
+      let typeSpeed = 100;
+      let delSpeed = 50;
+      function typingEffect() {
+        console.log(i, "iiii");
+        console.log(words[PPP], "words[i]");
+        let word = words[PPP].split("");
+        var loopTyping = function () {
+          if (word.length > 0) {
+            document.getElementById("word").innerHTML += word.shift();
+          } else {
+            delay(function () {
+              deletingEffect(); 
+            }, deleteDelay); 
+            return false;
+          }
+          timer = setTimeout(loopTyping, typeSpeed);
+        };
+        loopTyping();
+      }
+
+      function deletingEffect() {
+        let word = words[PPP].split("");
+        var loopDeleting = function () {
+          if (word.length > 0) {
+            word.pop();
+            document.getElementById("word").innerHTML = word.join("");
+          } else {
+            if (words.length > PPP + 1) {
+              PPP++;
+            } else {
+              PPP = 0;
+            }
+            typingEffect();
+            return false;
+          }
+
+          timer = setTimeout(loopDeleting, delSpeed);
+        };
+
+        loopDeleting();
+      }
+
+      var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+          clearTimeout(timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
+      typingEffect();
+    </script>
+  </body>
+</html>
